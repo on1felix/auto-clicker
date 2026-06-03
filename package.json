@@ -9,8 +9,9 @@
     "start": "electron-vite preview",
     "rebuild": "electron-rebuild -f -w uiohook-napi",
     "pack": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
-    "dist:zip": "npm run build && electron-builder --win zip"
+    "dist": "npm run build && electron-builder --win nsis",
+    "dist:zip": "npm run build && electron-builder --win zip",
+    "dist:portable": "npm run build && electron-builder --win portable"
   },
   "dependencies": {
     "electron-store": "^8.2.0",
@@ -50,11 +51,25 @@
     "win": {
       "target": [
         {
-          "target": "zip",
+          "target": "nsis",
           "arch": ["x64"]
         }
       ],
-      "artifactName": "AutoClicker-${version}-win-x64.${ext}"
+      "artifactName": "AutoClickerSetup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "AutoClicker-${version}-portable.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Auto Clicker",
+      "uninstallDisplayName": "Auto Clicker",
+      "deleteAppDataOnUninstall": false
     }
   }
 }
