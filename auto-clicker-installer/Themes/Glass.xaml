@@ -1,0 +1,262 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- COLORS -->
+    <Color x:Key="BgDeepColor">#FF0A0A1F</Color>
+    <Color x:Key="BgMidColor">#FF1A0F2E</Color>
+    <Color x:Key="GlassSurfaceColor">#14FFFFFF</Color>
+    <Color x:Key="GlassBorderColor">#1AFFFFFF</Color>
+    <Color x:Key="CyanColor">#FF22D3EE</Color>
+    <Color x:Key="VioletColor">#FFA78BFA</Color>
+    <Color x:Key="RoseColor">#FFF472B6</Color>
+    <Color x:Key="TextHi">#FFE2E8F0</Color>
+    <Color x:Key="TextMid">#FF94A3B8</Color>
+    <Color x:Key="TextLo">#FF64748B</Color>
+
+    <SolidColorBrush x:Key="BgDeep" Color="{StaticResource BgDeepColor}" />
+    <SolidColorBrush x:Key="BgMid" Color="{StaticResource BgMidColor}" />
+    <SolidColorBrush x:Key="GlassSurface" Color="{StaticResource GlassSurfaceColor}" />
+    <SolidColorBrush x:Key="GlassBorder" Color="{StaticResource GlassBorderColor}" />
+    <SolidColorBrush x:Key="Cyan" Color="{StaticResource CyanColor}" />
+    <SolidColorBrush x:Key="Violet" Color="{StaticResource VioletColor}" />
+    <SolidColorBrush x:Key="Rose" Color="{StaticResource RoseColor}" />
+    <SolidColorBrush x:Key="TextHiBrush" Color="{StaticResource TextHi}" />
+    <SolidColorBrush x:Key="TextMidBrush" Color="{StaticResource TextMid}" />
+    <SolidColorBrush x:Key="TextLoBrush" Color="{StaticResource TextLo}" />
+
+    <LinearGradientBrush x:Key="AccentGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="{StaticResource CyanColor}" Offset="0" />
+        <GradientStop Color="{StaticResource VioletColor}" Offset="0.55" />
+        <GradientStop Color="{StaticResource RoseColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BgGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF06061A" Offset="0" />
+        <GradientStop Color="{StaticResource BgDeepColor}" Offset="0.5" />
+        <GradientStop Color="{StaticResource BgMidColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- PRIMARY BUTTON STYLE (glass + accent border) -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="#22FFFFFF" />
+        <Setter Property="Foreground" Value="{StaticResource TextHiBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource AccentGradient}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="22,10" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="BdScale" ScaleX="1" ScaleY="1" />
+                        </Border.RenderTransform>
+                        <Border.Effect>
+                            <DropShadowEffect x:Name="BdShadow"
+                                              Color="#22D3EE"
+                                              BlurRadius="14"
+                                              ShadowDepth="0"
+                                              Opacity="0.25" />
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="BdShadow"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.8" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="BdShadow"
+                                                         Storyboard.TargetProperty="BlurRadius"
+                                                         To="28" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="BdShadow"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.25" Duration="0:0:0.2" />
+                                        <DoubleAnimation Storyboard.TargetName="BdShadow"
+                                                         Storyboard.TargetProperty="BlurRadius"
+                                                         To="14" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="BdScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="0.96" Duration="0:0:0.08" />
+                                        <DoubleAnimation Storyboard.TargetName="BdScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="0.96" Duration="0:0:0.08" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="BdScale"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         To="1" Duration="0:0:0.14">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetName="BdScale"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         To="1" Duration="0:0:0.14">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.45" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- GHOST BUTTON -->
+    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="Background" Value="#0AFFFFFF" />
+        <Setter Property="BorderBrush" Value="#22FFFFFF" />
+        <Setter Property="Foreground" Value="{StaticResource TextMidBrush}" />
+    </Style>
+
+    <!-- WINDOW TITLE BAR BUTTON -->
+    <Style x:Key="TitleBarButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource TextMidBrush}" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#1AFFFFFF" />
+                            <Setter Property="Foreground" Value="{StaticResource TextHiBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CloseButton" TargetType="Button" BasedOn="{StaticResource TitleBarButton}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#FFF472B6" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- TEXTBOX (PATH INPUT) -->
+    <Style x:Key="GlassTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#0DFFFFFF" />
+        <Setter Property="Foreground" Value="{StaticResource TextHiBrush}" />
+        <Setter Property="BorderBrush" Value="#1AFFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10,8" />
+        <Setter Property="FontFamily" Value="Cascadia Mono, Consolas" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="CaretBrush" Value="{StaticResource Cyan}" />
+        <Setter Property="SelectionBrush" Value="{StaticResource Violet}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Cyan}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- PROGRESS BAR -->
+    <Style x:Key="GlassProgress" TargetType="ProgressBar">
+        <Setter Property="Height" Value="8" />
+        <Setter Property="Background" Value="#14FFFFFF" />
+        <Setter Property="Foreground" Value="{StaticResource AccentGradient}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="4" ClipToBounds="True">
+                        <Grid>
+                            <Rectangle x:Name="PART_Track" />
+                            <Rectangle x:Name="PART_Indicator"
+                                       Fill="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="Left"
+                                       RadiusX="4" RadiusY="4">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="#22D3EE"
+                                                      BlurRadius="14"
+                                                      ShadowDepth="0"
+                                                      Opacity="0.6" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- GLASS CARD -->
+    <Style x:Key="GlassCard" TargetType="Border">
+        <Setter Property="Background" Value="#14FFFFFF" />
+        <Setter Property="BorderBrush" Value="#1AFFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="24" ShadowDepth="6" Opacity="0.35" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
