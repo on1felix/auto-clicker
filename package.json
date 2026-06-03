@@ -1,0 +1,60 @@
+{
+  "name": "auto-clicker",
+  "version": "1.0.0",
+  "description": "Glassmorphism auto-clicker with mouse & keyboard support",
+  "main": "out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "rebuild": "electron-rebuild -f -w uiohook-napi",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "dist:zip": "npm run build && electron-builder --win zip"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "uiohook-napi": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.0",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-rebuild": "^3.2.9",
+    "electron-vite": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "lucide-react": "^0.330.0",
+    "postcss": "^8.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0",
+    "zustand": "^4.5.0"
+  },
+  "build": {
+    "appId": "com.danii.autoclicker",
+    "productName": "Auto Clicker",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "zip",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "AutoClicker-${version}-win-x64.${ext}"
+    }
+  }
+}
