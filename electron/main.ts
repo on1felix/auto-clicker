@@ -1,7 +1,12 @@
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell, nativeImage } from 'electron'
 import { join } from 'path'
 import { engine } from './clicker/engine'
 import type { Settings } from './shared/types'
+
+// Bundled icon used both for the BrowserWindow and the dev-mode taskbar.
+const iconPath = app.isPackaged
+  ? join(process.resourcesPath, 'app.asar.unpacked', 'build', 'icon.ico')
+  : join(__dirname, '../../build/icon.ico')
 
 let win: BrowserWindow | null = null
 
@@ -19,6 +24,7 @@ function createWindow() {
     hasShadow: false,
     roundedCorners: true,
     thickFrame: false,
+    icon: nativeImage.createFromPath(iconPath),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,

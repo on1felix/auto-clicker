@@ -66,6 +66,13 @@ class ClickerEngine extends EventEmitter {
       capturing: this.state.capturing
     }
     this.clicksWindow = []
+    // Tell the input sender how long each button/key press should be held.
+    // Games like GTA 5 ignore zero-hold synthetic clicks; ~15 ms is a sweet
+    // spot. At very short intervals we shrink the hold so PowerShell doesn't
+    // fall behind the click loop.
+    const intervalMs = Math.max(5, Math.round(this.settings.intervalMs))
+    const holdMs = Math.max(2, Math.min(15, intervalMs - 4))
+    inputSender.setHoldMs(holdMs)
     this.scheduleNext()
     this.statsTimer = setInterval(() => this.emitState(), 120)
     this.emitState()

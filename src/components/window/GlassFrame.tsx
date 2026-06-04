@@ -17,7 +17,9 @@ export function GlassFrame({ active, children }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.55 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{
+              opacity: { duration: 1.4, ease: 'easeOut' }
+            }}
             className="conic-ring-slow absolute inset-0 rounded-[24px]"
             style={{
               filter: 'blur(8px)'

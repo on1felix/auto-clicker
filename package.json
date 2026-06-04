@@ -45,10 +45,15 @@
     },
     "files": [
       "out/**/*",
+      "build/icon.ico",
       "package.json"
     ],
     "asar": true,
+    "asarUnpack": [
+      "build/icon.ico"
+    ],
     "win": {
+      "icon": "build/icon.ico",
       "target": [
         {
           "target": "nsis",

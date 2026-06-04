@@ -2,7 +2,16 @@ import { motion } from 'framer-motion'
 
 export function ActivePulse() {
   return (
-    <>
+    <motion.div
+      className="pointer-events-none absolute inset-0"
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{
+        opacity: { duration: 1.1, ease: 'easeOut' },
+        scale: { duration: 1.1, ease: [0.16, 1, 0.3, 1] }
+      }}
+    >
       {/* rotating conic ring */}
       <div
         className="conic-ring pointer-events-none absolute inset-0 rounded-full"
@@ -63,6 +72,6 @@ export function ActivePulse() {
           />
         )
       })}
-    </>
+    </motion.div>
   )
 }
