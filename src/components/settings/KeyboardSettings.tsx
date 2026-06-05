@@ -32,31 +32,46 @@ export function KeyboardSettings({ keyToSend, onChange }: Props) {
           <Keyboard className="h-3.5 w-3.5" />
           Key to send
         </div>
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           {listening ? (
             <motion.button
               key="listen"
               initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: [1, 1.03, 1], opacity: 1 }}
+              animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ scale: { duration: 0.9, repeat: Infinity } }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
               className="rounded-lg border border-accent-cyan/50 bg-accent-cyan/10 px-3.5 py-1.5 text-[11px] font-bold text-accent-cyan"
             >
-              Press a key…
+              <motion.span
+                className="inline-block"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                Press a key…
+              </motion.span>
             </motion.button>
           ) : (
             <motion.button
-              key="value"
+              key="chip"
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
               onClick={(e) => {
                 ;(e.currentTarget.parentElement?.parentElement as HTMLDivElement | null)?.focus()
                 setListening(true)
               }}
               className="rounded-lg border border-white/10 bg-white/[0.05] px-3.5 py-1.5 font-mono text-[12px] font-bold text-white shadow-[0_0_12px_rgba(167,139,250,0.18)] hover:border-accent-violet/50"
             >
-              {keyToSend}
+              <motion.span
+                key={keyToSend}
+                initial={{ opacity: 0, y: -2 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className="inline-block"
+              >
+                {keyToSend}
+              </motion.span>
             </motion.button>
           )}
         </AnimatePresence>
