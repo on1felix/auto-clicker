@@ -16,7 +16,7 @@ export function ActivationButton({ active, onToggle }: Props) {
         onClick={onToggle}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.95 }}
-        className="relative flex h-[130px] w-[130px] items-center justify-center overflow-hidden rounded-full glass-strong"
+        className="relative flex h-[130px] w-[130px] items-center justify-center overflow-hidden rounded-full glass-strong outline-none focus:outline-none focus-visible:outline-none"
         style={{
           background:
             'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 70%)',

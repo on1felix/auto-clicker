@@ -24,6 +24,22 @@ body {
   overflow: hidden;
 }
 
+button,
+[role='button'],
+[tabindex] {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus,
+button:focus-visible,
+[role='button']:focus,
+[role='button']:focus-visible,
+[tabindex]:focus,
+[tabindex]:focus-visible {
+  outline: none !important;
+  box-shadow: none;
+}
+
 #root {
   border-radius: 24px;
   overflow: hidden;
