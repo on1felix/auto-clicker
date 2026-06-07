@@ -11,6 +11,7 @@ import { TargetTabs } from './components/settings/TargetTabs'
 import { MouseSettings } from './components/settings/MouseSettings'
 import { KeyboardSettings } from './components/settings/KeyboardSettings'
 import { IntervalSlider } from './components/settings/IntervalSlider'
+import { AnvToggle } from './components/settings/AnvToggle'
 import { StartBindCard } from './components/settings/StartBindCard'
 import { HoldBindCard } from './components/settings/HoldBindCard'
 import { LiveBanner } from './components/stats/LiveBanner'
@@ -90,6 +91,11 @@ export default function App() {
             <IntervalSlider
               value={settings.intervalMs}
               onChange={(intervalMs) => update({ intervalMs })}
+            />
+
+            <AnvToggle
+              value={settings.anv ?? false}
+              onChange={(anv) => update({ anv })}
             />
 
             <AnimatePresence mode="wait">

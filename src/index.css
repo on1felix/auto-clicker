@@ -24,20 +24,26 @@ body {
   overflow: hidden;
 }
 
-button,
-[role='button'],
-[tabindex] {
-  outline: none !important;
+* {
   -webkit-tap-highlight-color: transparent;
 }
-button:focus,
-button:focus-visible,
-[role='button']:focus,
-[role='button']:focus-visible,
-[tabindex]:focus,
-[tabindex]:focus-visible {
+*:focus,
+*:focus-visible,
+*:focus-within {
   outline: none !important;
-  box-shadow: none;
+}
+button,
+[role='button'],
+[tabindex],
+input,
+textarea,
+select,
+a {
+  outline: none !important;
+}
+input[type='range']::-webkit-slider-thumb,
+input[type='range']::-webkit-slider-runnable-track {
+  outline: none !important;
 }
 
 #root {

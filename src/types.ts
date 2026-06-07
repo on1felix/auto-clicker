@@ -17,6 +17,7 @@ export interface Settings {
   intervalMs: number
   startBind: BindKey
   holdBind: BindKey | null
+  anv: boolean
 }
 
 export interface ClickerState {
