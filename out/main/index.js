@@ -478,7 +478,8 @@ const DEFAULT_SETTINGS = {
   keyToSend: "F",
   intervalMs: 67,
   startBind: { kind: "keyboard", code: "F6", label: "F6" },
-  holdBind: { kind: "keyboard", code: "F6", label: "F6" }
+  holdBind: { kind: "keyboard", code: "F6", label: "F6" },
+  anv: false
 };
 const DEFAULT_STATE = {
   active: false,
@@ -592,8 +593,13 @@ class ClickerEngine extends events.EventEmitter {
     this.emitState();
   }
   scheduleNext() {
-    const intervalMs = Math.max(5, Math.min(5e3, Math.round(this.settings.intervalMs)));
-    this.timer = setTimeout(() => this.tick(), intervalMs);
+    const base = Math.max(5, Math.min(5e3, Math.round(this.settings.intervalMs)));
+    let next = base;
+    if (this.settings.anv) {
+      const jitter = (Math.random() - 0.45) * 0.36;
+      next = Math.max(5, Math.round(base * (1 + jitter)));
+    }
+    this.timer = setTimeout(() => this.tick(), next);
   }
   tick() {
     if (!this.state.active) return;
@@ -629,7 +635,7 @@ let win = null;
 function createWindow() {
   win = new electron.BrowserWindow({
     width: 460,
-    height: 680,
+    height: 760,
     frame: false,
     transparent: true,
     backgroundColor: "#00000000",

@@ -13,7 +13,7 @@ let win: BrowserWindow | null = null
 function createWindow() {
   win = new BrowserWindow({
     width: 460,
-    height: 680,
+    height: 760,
     frame: false,
     transparent: true,
     backgroundColor: '#00000000',

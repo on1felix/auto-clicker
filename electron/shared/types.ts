@@ -16,6 +16,7 @@ export interface Settings {
   intervalMs: number       // delay between clicks in milliseconds (5..1000)
   startBind: BindKey       // used in toggle mode
   holdBind: BindKey | null // used in hold mode (separate from any click target)
+  anv: boolean             // anti-detection: jitter the interval randomly per click
 }
 
 export interface ClickerState {
@@ -34,7 +35,8 @@ export const DEFAULT_SETTINGS: Settings = {
   keyToSend: 'F',
   intervalMs: 67,
   startBind: { kind: 'keyboard', code: 'F6', label: 'F6' },
-  holdBind: { kind: 'keyboard', code: 'F6', label: 'F6' }
+  holdBind: { kind: 'keyboard', code: 'F6', label: 'F6' },
+  anv: false
 }
 
 export const DEFAULT_STATE: ClickerState = {

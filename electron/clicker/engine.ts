@@ -119,8 +119,15 @@ class ClickerEngine extends EventEmitter {
   }
 
   private scheduleNext() {
-    const intervalMs = Math.max(5, Math.min(5000, Math.round(this.settings.intervalMs)))
-    this.timer = setTimeout(() => this.tick(), intervalMs)
+    const base = Math.max(5, Math.min(5000, Math.round(this.settings.intervalMs)))
+    let next = base
+    if (this.settings.anv) {
+      // Jitter ±18% with a small bias toward slower clicks so the average
+      // CPS dips slightly — antivirus heuristics flag perfectly steady CPS.
+      const jitter = (Math.random() - 0.45) * 0.36
+      next = Math.max(5, Math.round(base * (1 + jitter)))
+    }
+    this.timer = setTimeout(() => this.tick(), next)
   }
 
   private tick() {
