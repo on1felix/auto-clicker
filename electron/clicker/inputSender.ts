@@ -263,6 +263,7 @@ const VK_NAMED: Record<string, number> = {
 }
 
 function keyToVk(raw: string): number | null {
+  if (raw === ' ') return VK_NAMED.Space
   const k = raw.trim()
   if (!k) return null
   if (VK_NAMED[k] !== undefined) return VK_NAMED[k]

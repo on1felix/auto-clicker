@@ -248,6 +248,7 @@ const VK_NAMED = {
   Alt: 18
 };
 function keyToVk(raw) {
+  if (raw === " ") return VK_NAMED.Space;
   const k = raw.trim();
   if (!k) return null;
   if (VK_NAMED[k] !== void 0) return VK_NAMED[k];

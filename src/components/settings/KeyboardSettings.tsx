@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Keyboard } from 'lucide-react'
 import { GlassCard } from '../ui/GlassCard'
@@ -10,12 +10,13 @@ interface Props {
 
 export function KeyboardSettings({ keyToSend, onChange }: Props) {
   const [listening, setListening] = useState(false)
+  const boxRef = useRef<HTMLDivElement>(null)
 
   const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (!listening) return
     e.preventDefault()
     e.stopPropagation()
-    const v = e.key.length === 1 ? e.key.toUpperCase() : e.key
+    const v = e.key === ' ' ? 'Space' : e.key.length === 1 ? e.key.toUpperCase() : e.key
     onChange(v)
     setListening(false)
   }
@@ -23,6 +24,7 @@ export function KeyboardSettings({ keyToSend, onChange }: Props) {
   return (
     <GlassCard label="Keyboard">
       <div
+        ref={boxRef}
         tabIndex={0}
         onKeyDown={handleKey}
         onBlur={() => setListening(false)}
@@ -57,8 +59,8 @@ export function KeyboardSettings({ keyToSend, onChange }: Props) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              onClick={(e) => {
-                ;(e.currentTarget.parentElement?.parentElement as HTMLDivElement | null)?.focus()
+              onClick={() => {
+                boxRef.current?.focus()
                 setListening(true)
               }}
               className="rounded-lg border border-white/10 bg-white/[0.05] px-3.5 py-1.5 font-mono text-[12px] font-bold text-white shadow-[0_0_12px_rgba(167,139,250,0.18)] hover:border-accent-violet/50"
@@ -70,7 +72,7 @@ export function KeyboardSettings({ keyToSend, onChange }: Props) {
                 transition={{ duration: 0.18, ease: 'easeOut' }}
                 className="inline-block"
               >
-                {keyToSend}
+{keyToSend === ' ' ? 'Space' : keyToSend}
               </motion.span>
             </motion.button>
           )}
